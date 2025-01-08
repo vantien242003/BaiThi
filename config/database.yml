@@ -27,16 +27,16 @@ production:
   primary:
     <<: *default
     database: baithi
+    url: <%= ENV ['DATABASE_URL'] %>
   cache:
     <<: *default
-    database: baithi
-    url: <%= ENV ['DATABASE_URL'] %>
+    database: baithi_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    database: baithi
+    database: baithi_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    database: baithi
+    database: bbaithi_cable
     migrations_paths: db/cable_migrate
