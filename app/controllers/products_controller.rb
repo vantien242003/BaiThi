@@ -1,19 +1,19 @@
 class ProductsController < ApplicationController
   allow_unauthenticated_access only: %i[ index show ]
   before_action :set_product, only: %i[ show edit update destroy ]
-# hien thi
+  # hien thi
   def index
     @products = Product.all
   end
-# show id
+  # show id
   def show
     @product = Product.find(params[:id])
   end
-# tao san pham moi
+  # tao san pham moi
   def new
     @product = Product.new
   end
-# else
+  # else
   def create
     @product = Product.new(product_params)
     if @product.save
@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
-# cap nhat san pham
+  # cap nhat san pham
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
     end
   end
 
-# xoa san pham
+  # xoa san pham
   def destroy
     @product.destroy
     redirect_to products_path
@@ -52,5 +52,4 @@ class ProductsController < ApplicationController
     def product_params
       params.expect(product: [ :name, :description, :featured_image, :inventory_count ])
     end
-
 end

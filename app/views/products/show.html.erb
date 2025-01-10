@@ -1,19 +1,90 @@
-<p><%= link_to "Back", products_path %></p>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Page</title>
 
-<section class="product">
-  <%= image_tag @product.featured_image if @product.featured_image.attached? %>
+  <!-- Thêm Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Thêm CSS Tùy Chỉnh -->
+  <style>
+    /* Tùy chỉnh giao diện sản phẩm */
+    .product {
+      background-color: #f8f9fa;
+      padding: 30px 0;
+    }
 
-  <section class="product-info">
-    <% cache @product do %>
-      <h1><%= @product.name %></h1>
-      <%= @product.description %>
-    <% end %>
+    .product-info h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
 
-    <%= render "inventory", product: @product %>
+    .product-info p {
+      font-size: 1.1rem;
+      color: #555;
+    }
 
-    <% if authenticated? %>
-      <%= link_to "Edit", edit_product_path(@product) %>
-      <%= button_to "Delete", @product, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
-    <% end %>
+    .product-info .btn {
+      font-size: 1rem;
+      padding: 10px 20px;
+    }
+
+    .product-info .btn-primary {
+      background-color: #007bff;
+    }
+
+    .product-info .btn-danger {
+      background-color: #dc3545;
+    }
+
+    .product img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Link quay lại -->
+  <p><%= link_to "Back", products_path, class: "btn btn-secondary" %></p>
+
+  <!-- Phần sản phẩm -->
+  <section class="product my-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Phần hình ảnh sản phẩm -->
+          <%= image_tag @product.featured_image if @product.featured_image.attached? %>
+        </div>
+        <div class="col-md-6">
+          <!-- Phần thông tin sản phẩm -->
+          <section class="product-info">
+            <% cache @product do %>
+              <h1 class="display-4"><%= @product.name %></h1>
+              <p><%= @product.description %></p>
+            <% end %>
+
+            <%= render "inventory", product: @product %>
+
+            <% if authenticated? %>
+              <div class="d-flex justify-content-between mt-3">
+                <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
+                <%= button_to "Delete", @product, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+              </div>
+            <% end %>
+          </section>
+        </div>
+      </div>
+    </div>
   </section>
-</section>
+
+  <!-- Thêm Bootstrap JS (nếu cần) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+</body>
+</html>

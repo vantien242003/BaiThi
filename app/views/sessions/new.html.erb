@@ -1,11 +1,82 @@
-<%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
-<%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In</title>
 
-<%= form_with url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
-  <%= form.submit "Sign in" %>
-<% end %>
-<br>
+  <!-- Thêm Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
-<%= link_to "Forgot password?", new_password_path %>
+  <!-- Thêm CSS Tùy Chỉnh -->
+  <style>
+    .alert {
+      margin-top: 20px;
+      padding: 10px;
+    }
+
+    .form-container {
+      background-color: #f8f9fa;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-container .form-control {
+      margin-bottom: 15px;
+    }
+
+    .btn-signin {
+      width: 100%;
+      padding: 10px;
+      font-size: 1.1rem;
+    }
+
+    .forgot-password-link {
+      text-align: center;
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- Hiển thị thông báo flash -->
+    <%= tag.div(flash[:alert], class: "alert alert-danger") if flash[:alert] %>
+    <%= tag.div(flash[:notice], class: "alert alert-success") if flash[:notice] %>
+
+    <div class="form-container">
+      <h2 class="text-center">Sign In</h2>
+
+      <!-- Form đăng nhập -->
+      <%= form_with url: session_path, class: "signin-form" do |form| %>
+        <div class="form-group">
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", class: "form-control", placeholder: "Enter your email address", value: params[:email_address] %>
+        </div>
+
+        <div class="form-group">
+          <%= form.password_field :password, required: true, autocomplete: "current-password", class: "form-control", placeholder: "Enter your password", maxlength: 72 %>
+        </div>
+
+        <div class="form-group">
+          <%= form.submit "Sign in", class: "btn btn-primary btn-signin" %>
+        </div>
+      <% end %>
+
+      <!-- Liên kết quên mật khẩu -->
+      <%= link_to "Forgot password?", new_password_path, class: "forgot-password-link" %>
+    </div>
+  </div>
+
+  <!-- Thêm Bootstrap JS (nếu cần) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
