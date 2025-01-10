@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :products
-
+  resources :products do
+  resources :subscribers, only: [ :create ]
+  end
+  resource :unsubscribe, only: [ :show ]
 end
